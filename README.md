@@ -1,0 +1,1 @@
+ This is my practice while studying the 'Advanced Python: Working with Databases' course on LinkedIn Learning.
