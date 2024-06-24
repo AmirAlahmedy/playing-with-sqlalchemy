@@ -6,3 +6,5 @@ sqlite-with-python/Pipfile.lock
 /mysql-with-python/mysql-workspace/Include/
 /mysql-with-python/mysql-workspace/Lib/
 /mysql-with-python/mysql-workspace/Scripts/
+/mysql-with-python/mysql-sqlalchemy-workspace/pyvenv.cfg
+/mysql-with-python/mysql-workspace/pyvenv.cfg
