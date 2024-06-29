@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer, create_engine, ForeignKey
-from sqlalchemy.orm import registry, relationship
+from sqlalchemy.orm import registry, relationship, Session
 import os
 
 mysq_root_password = os.getenv("PASSWORD")
@@ -32,3 +32,22 @@ class Task(Base):
 
 
 Base.metadata.create_all(engine)
+
+with Session(engine) as session:
+    organize_closet_project = Project(title='Organize closet',
+                                      description='Organize closet by color ans style')
+
+    session.add(organize_closet_project)
+
+    session.flush()  # flush the session to initialize the primary key
+
+    tasks = [
+        Task(project_id=organize_closet_project.project_id, description='Decide what clothes to donate'),
+        Task(project_id=organize_closet_project.project_id, description='Organize summer clothes'),
+        Task(project_id=organize_closet_project.project_id, description='Organize winter clothes')
+    ]
+
+    session.bulk_save_objects(tasks)
+
+    session.commit()
+
