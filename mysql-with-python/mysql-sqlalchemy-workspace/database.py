@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, create_engine, ForeignKey
+from sqlalchemy import Column, String, Integer, create_engine, ForeignKey, select
 from sqlalchemy.orm import registry, relationship, Session
 import os
 
@@ -34,20 +34,31 @@ class Task(Base):
 Base.metadata.create_all(engine)
 
 with Session(engine) as session:
-    organize_closet_project = Project(title='Organize closet',
-                                      description='Organize closet by color ans style')
+    # organize_closet_project = Project(title='Organize closet',
+    #                                   description='Organize closet by color ans style')
+    # session.add(organize_closet_project)
+    #
+    # session.flush()  # flush the session to initialize the primary key
+    #
+    # tasks = [
+    #     Task(project_id=organize_closet_project.project_id, description='Decide what clothes to donate'),
+    #     Task(project_id=organize_closet_project.project_id, description='Organize summer clothes'),
+    #     Task(project_id=organize_closet_project.project_id, description='Organize winter clothes')
+    # ]
+    #
+    # session.bulk_save_objects(tasks)
 
-    session.add(organize_closet_project)
+    smt = select(Project).where(Project.title == 'Organize closet')
+    results = session.execute(smt)
+    organize_closet_project = results.scalar()
 
-    session.flush()  # flush the session to initialize the primary key
+    smt = select(Task).where(Task.project_id == organize_closet_project.project_id)
+    results = session.execute(smt)
 
-    tasks = [
-        Task(project_id=organize_closet_project.project_id, description='Decide what clothes to donate'),
-        Task(project_id=organize_closet_project.project_id, description='Organize summer clothes'),
-        Task(project_id=organize_closet_project.project_id, description='Organize winter clothes')
-    ]
-
-    session.bulk_save_objects(tasks)
+    for task in results:
+        print(task)
 
     session.commit()
+
+
 
