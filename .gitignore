@@ -8,3 +8,4 @@ sqlite-with-python/Pipfile.lock
 /mysql-with-python/mysql-workspace/Scripts/
 /mysql-with-python/mysql-sqlalchemy-workspace/pyvenv.cfg
 /mysql-with-python/mysql-workspace/pyvenv.cfg
+/pgsql-with-python/postgres-workspace/**
